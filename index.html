@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gody Corominas - Dossier Artístico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@100;300;400;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                background-color: #080808;
+                color: #f4f4f5;
+                overflow-x: hidden;
+            }
+            ::selection {
+                background-color: rgba(249, 115, 22, 0.3);
+            }
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            color: transparent;
+        }
+        .glass-dark {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .parallax-bg {
+            transition: transform 0.1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient Light -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-orange-600/10 rounded-full blur-[120px] animate-float"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-zinc-800/20 rounded-full blur-[150px]"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center mix-blend-difference">
+        <div class="flex items-center gap-4">
+            <a href="https://www.instagram.com/godycorominas/" target="_blank" class="text-xl font-serif font-black tracking-tighter italic uppercase hover:text-orange-500 transition-all hover:scale-105 active:scale-95 block group relative hover:drop-shadow-[0_0_8px_rgba(249,115,22,0.4)]">
+                Gody Corominas
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-orange-500 transition-all group-hover:w-full"></span>
+            </a>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-12 text-[10px] uppercase tracking-[0.3em] font-bold">
+            <button onclick="toggleLang()" class="flex items-center gap-2 hover:text-orange-500 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+                <span id="lang-btn-text">EN</span>
+            </button>
+            <a href="#perfil" class="hover:text-orange-500 transition-colors relative group" data-t="nav_profile">Perfil</a>
+            <a href="#proyectos" class="hover:text-orange-500 transition-colors relative group" data-t="nav_projects">Proyectos</a>
+            <a href="#trayectoria" class="hover:text-orange-500 transition-colors relative group" data-t="nav_tours">Trayectoria</a>
+            <a href="#docencia" class="hover:text-orange-500 transition-colors relative group" data-t="nav_teaching">Docencia</a>
+            <a href="#contacto" class="px-6 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all" data-t="nav_contact">Hablemos.</a>
+        </div>
+
+        <button onclick="toggleMenu(true)" class="md:hidden p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-12 hidden opacity-0 transition-opacity duration-300">
+        <button onclick="toggleMenu(false)" class="absolute top-8 right-8 p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+        <button onclick="toggleLang(); toggleMenu(false);" class="text-2xl font-serif italic" id="lang-mobile-text">English</button>
+        <a href="#perfil" onclick="toggleMenu(false)" class="text-4xl font-serif italic hover:text-orange-500 transition-colors" data-t="nav_profile">Perfil</a>
+        <a href="#proyectos" onclick="toggleMenu(false)" class="text-4xl font-serif italic hover:text-orange-500 transition-colors" data-t="nav_projects">Proyectos</a>
+        <a href="#trayectoria" onclick="toggleMenu(false)" class="text-4xl font-serif italic hover:text-orange-500 transition-colors" data-t="nav_tours">Trayectoria</a>
+        <a href="#docencia" onclick="toggleMenu(false)" class="text-4xl font-serif italic hover:text-orange-500 transition-colors" data-t="nav_teaching">Docencia</a>
+        <a href="#contacto" onclick="toggleMenu(false)" class="text-4xl font-serif italic hover:text-orange-500 transition-colors" data-t="nav_contact">Contacto</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="relative z-10 text-center px-6" id="hero-content">
+            <span class="text-[11px] uppercase tracking-[0.8em] font-light opacity-40 mb-8 block" data-t="hero_subtitle">Músico · Autor · Productor</span>
+            
+            <div class="relative">
+                <h1 id="hero-name" class="text-[18vw] md:text-[14vw] font-serif font-black italic leading-[0.75] tracking-tighter mb-4 mix-blend-difference text-white transition-transform duration-100">
+                    Gody<br>Corominas
+                </h1>
+                <div class="absolute top-1/2 left-0 w-full h-[1px] bg-orange-600/30 -z-10"></div>
+            </div>
+
+            <p class="text-sm md:text-lg font-light tracking-[0.2em] opacity-40 uppercase mt-12" data-t="hero_tagline">Cuatro décadas de arquitectura sonora</p>
+        </div>
+
+        <div class="absolute inset-0 z-0 opacity-40 grayscale hover:grayscale-0 transition-all duration-1000 parallax-bg" id="hero-bg">
+            <img src="https://picsum.photos/seed/gody-artist-live/1920/1080?grayscale" alt="Gody Corominas Live" class="w-full h-full object-cover object-center" referrerPolicy="no-referrer">
+        </div>
+
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-20">
+            <div class="w-[1px] h-20 bg-gradient-to-b from-white to-transparent"></div>
+            <span class="text-[9px] uppercase tracking-[0.5em]">Scroll</span>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="perfil" class="relative py-40 px-8 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-24 items-start">
+            <div class="lg:sticky lg:top-40 reveal">
+                <div class="space-y-12">
+                    <div class="space-y-4">
+                        <span class="text-orange-500 font-mono text-xs tracking-widest uppercase">01 / Perfil</span>
+                        <h2 class="text-6xl md:text-8xl font-serif italic leading-none" data-t="profile_title">El Arte de Crear.</h2>
+                    </div>
+                    <p class="text-xl md:text-2xl font-light leading-relaxed text-zinc-400" data-t="profile_desc">
+                        Gody Corominas es un creador activo con más de 40 años de trayectoria. Su música es un puente entre el rock y las raíces latinoamericanas.
+                    </p>
+                    <div class="flex gap-12">
+                        <div>
+                            <div class="text-4xl font-serif italic mb-2">40+</div>
+                            <div class="text-[10px] uppercase tracking-widest opacity-40" data-t="stats_years">Años de Carrera</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-serif italic mb-2">11</div>
+                            <div class="text-[10px] uppercase tracking-widest opacity-40" data-t="stats_tours">Giras Europeas</div>
+                        </div>
+                    </div>
+                    <button class="flex items-center gap-4 px-8 py-4 border border-orange-500/30 rounded-full hover:bg-orange-500 hover:text-white transition-all group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-1 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        <span class="text-xs uppercase tracking-widest font-bold" data-t="epk_download">Descargar EPK (PDF)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-32 pt-20 lg:pt-0">
+                <div class="space-y-8 reveal">
+                    <div class="aspect-[4/5] rounded-3xl overflow-hidden glass-dark p-2">
+                        <img src="https://picsum.photos/seed/gody-studio/800/1000?grayscale" alt="Studio" class="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-1000" referrerPolicy="no-referrer">
+                    </div>
+                    <p class="text-zinc-500 leading-relaxed">
+                        Multiinstrumentista y creador activo en los proyectos que integra, ha desarrollado un recorrido que combina composición, grabación, producción y presentaciones en vivo en Argentina, Latinoamérica y Europa.
+                    </p>
+                </div>
+
+                <div class="space-y-12 reveal">
+                    <h3 class="text-3xl font-serif italic" data-t="timeline_title">Línea de Tiempo.</h3>
+                    <div id="timeline-container" class="space-y-8 relative before:absolute before:left-4 before:top-0 before:bottom-0 before:w-[1px] before:bg-white/10">
+                        <!-- Timeline items will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Gallery -->
+    <section class="py-40 px-8 bg-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-24">
+                <div class="space-y-12 reveal">
+                    <div class="space-y-4">
+                        <span class="text-orange-500 font-mono text-xs tracking-widest uppercase">Media</span>
+                        <h2 class="text-6xl font-serif italic" data-t="video_gallery">Galería de Video</h2>
+                    </div>
+                    <div class="aspect-video rounded-3xl overflow-hidden glass-dark border border-white/10">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/RH-b0pwbz5M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="space-y-12 reveal">
+                    <div class="space-y-4">
+                        <span class="text-orange-500 font-mono text-xs tracking-widest uppercase">Audio</span>
+                        <h2 class="text-6xl font-serif italic">Spotify.</h2>
+                    </div>
+                    <div class="rounded-3xl overflow-hidden glass-dark border border-white/10 h-80">
+                        <iframe src="https://open.spotify.com/embed/artist/6t1c4pnX9jkMWXH8XJEgdS" width="100%" height="100%" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="proyectos" class="py-40 bg-zinc-950/50">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-12 mb-24 reveal">
+                <div class="space-y-4">
+                    <span class="text-orange-500 font-mono text-xs tracking-widest uppercase">02 / Obra</span>
+                    <h2 class="text-6xl md:text-8xl font-serif italic" data-t="discography_title">Discografía.</h2>
+                </div>
+                <p class="max-w-xs text-[10px] uppercase tracking-[0.3em] font-bold leading-loose opacity-40">
+                    Un catálogo que abarca desde el rock alternativo hasta la música popular y experimental.
+                </p>
+            </div>
+
+            <div id="projects-grid" class="grid md:grid-cols-2 gap-12">
+                <!-- Projects will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="trayectoria" class="relative py-60 overflow-hidden bg-orange-600">
+        <div class="absolute inset-0 opacity-10 mix-blend-overlay">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+                <div class="space-y-12 reveal">
+                    <h3 class="text-7xl md:text-9xl font-serif font-black italic text-white leading-[0.8] tracking-tighter" id="tours-title">
+                        Giras<br>Mundiales.
+                    </h3>
+                    <p class="text-2xl text-orange-100 font-light leading-relaxed" data-t="trayectoria_desc">
+                        Desde Rock al Parque en Colombia hasta 11 giras por el continente europeo.
+                    </p>
+                </div>
+
+                <div id="experience-list" class="space-y-4 reveal">
+                    <!-- Experience items will be injected here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching Section -->
+    <section id="docencia" class="py-40 px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-32 space-y-6 reveal">
+            <span class="text-orange-500 font-mono text-xs tracking-widest uppercase">04 / Formación</span>
+            <h2 class="text-6xl md:text-8xl font-serif italic" data-t="teaching_title">Docencia & Cultura.</h2>
+        </div>
+
+        <div id="teaching-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 rounded-3xl overflow-hidden reveal">
+            <!-- Teaching items will be injected here -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-40 px-8 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-32">
+                <div class="space-y-16 reveal">
+                    <div class="space-y-4">
+                        <span class="text-orange-500 font-mono text-xs tracking-widest uppercase">05 / Contacto</span>
+                        <h2 class="text-6xl md:text-8xl font-serif italic" data-t="contact_title">Hablemos.</h2>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <a href="mailto:godycorominas@gmail.com" class="block group">
+                            <div class="text-[10px] uppercase tracking-widest opacity-30 mb-2">Email</div>
+                            <div class="text-2xl md:text-4xl font-light group-hover:text-orange-500 transition-colors">godycorominas@gmail.com</div>
+                        </a>
+                        <a href="tel:2804637852" class="block group">
+                            <div class="text-[10px] uppercase tracking-widest opacity-30 mb-2">Teléfono</div>
+                            <div class="text-2xl md:text-4xl font-light group-hover:text-orange-500 transition-colors">2804637852</div>
+                        </a>
+                        <div class="block">
+                            <div class="text-[10px] uppercase tracking-widest opacity-30 mb-2">Ubicación</div>
+                            <div class="text-2xl md:text-4xl font-light">Puerto Madryn – Chubut – Argentina</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-12 reveal">
+                    <div class="glass-dark p-12 rounded-[2rem] space-y-8">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <input type="text" placeholder="Nombre" class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-orange-500 transition-colors font-light">
+                            <input type="email" placeholder="Email" class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-orange-500 transition-colors font-light">
+                        </div>
+                        <input type="text" placeholder="Asunto" class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-orange-500 transition-colors font-light">
+                        <textarea rows="4" placeholder="Mensaje" class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-orange-500 transition-colors font-light resize-none"></textarea>
+                        <button class="w-full py-6 bg-white text-black rounded-full font-bold uppercase text-xs tracking-[0.3em] hover:bg-orange-600 hover:text-white transition-all">
+                            Enviar Mensaje
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-8 border-t border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="flex items-center gap-4">
+                <span class="text-3xl font-serif font-black italic tracking-tighter">Gody Corominas</span>
+                <div class="h-6 w-[1px] bg-white/10"></div>
+                <span class="text-[9px] uppercase tracking-[0.4em] opacity-30">© 2026 Dossier Artístico</span>
+            </div>
+            
+            <div class="flex gap-12 text-[9px] uppercase tracking-[0.4em] opacity-30">
+                <a href="https://www.instagram.com/godycorominas/" target="_blank" class="hover:opacity-100 transition-opacity">Instagram</a>
+                <a href="https://open.spotify.com/intl-es/artist/6t1c4pnX9jkMWXH8XJEgdS" target="_blank" class="hover:opacity-100 transition-opacity">Spotify</a>
+                <a href="https://youtu.be/RH-b0pwbz5M" target="_blank" class="hover:opacity-100 transition-opacity">Youtube</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data
+        const PROJECTS = [
+            { name: "Proyecto Solista", role: "Composición, interpretación y producción íntegra", albums: ["Solo por que quise (2023)"] },
+            { name: "Karamelo Santo (2005-2015)", role: "Voz, multiinstrumentista y producción discográfica", albums: ["Haciendo Bulla", "La Gente Arriba", "Antena Pachamama", "El Baile Oficial (en vivo)", "Karamelo Santo", "Otro Paso Adelante"] },
+            { name: "La Inundación / Aballay & Corominas", role: "Composición y producción", albums: ["Tarde Como Siempre", "El Infinito Poder de la Lluvia", "Del Otro Lado de la Tela"] },
+            { name: "La Brizuela Méndez", role: "Cantante y bajista", albums: ["Todos los Frascos (2000)", "La Feria de la Alegría (2010)"] }
+        ];
+
+        const EXPERIENCE = [
+            "11 giras europeas", "Gira por México", "Gira por Chile", "Festival Rock al Parque (Colombia)", "Festivales internacionales de gran relevancia en Europa", "Escenarios masivos y circuitos de festivales"
+        ];
+
+        const TEACHING = [
+            "Producción musical", "Entrenamiento vocal", "Ensamble de música popular", "Construcción de instrumentos con materiales reciclados"
+        ];
+
+        const TIMELINE = [
+            { year: "1986", event: "Inicios en la escena rock de Mendoza", category: "Origen" },
+            { year: "1995", event: "Fundación de La Brizuela Méndez", category: "Banda" },
+            { year: "2005", event: "Ingreso a Karamelo Santo - Proyección Internacional", category: "Hito" },
+            { year: "2007", event: "Primera gira europea (11 en total)", category: "Gira" },
+            { year: "2015", event: "Radicación en Puerto Madryn - Nueva etapa creativa", category: "Cambio" },
+            { year: "2023", event: "Lanzamiento 'Solo por que quise' (Álbum Solista)", category: "Actualidad" }
+        ];
+
+        const TRANSLATIONS = {
+            es: {
+                nav_profile: "Perfil", nav_projects: "Proyectos", nav_tours: "Trayectoria", nav_teaching: "Docencia", nav_contact: "Hablemos.",
+                hero_subtitle: "Músico · Autor · Productor", hero_tagline: "Cuatro décadas de arquitectura sonora",
+                profile_title: "El Arte de Crear.", profile_desc: "Gody Corominas es un creador activo con más de 40 años de trayectoria. Su música es un puente entre el rock y las raíces latinoamericanas.",
+                stats_years: "Años de Carrera", stats_tours: "Giras Europeas",
+                discography_title: "Discografía.", trayectoria_title: "Giras Mundiales.", trayectoria_desc: "Desde Rock al Parque en Colombia hasta 11 giras por el continente europeo.",
+                teaching_title: "Docencia & Cultura.", contact_title: "Hablemos.", timeline_title: "Línea de Tiempo.",
+                epk_download: "Descargar EPK (PDF)", video_gallery: "Galería de Video"
+            },
+            en: {
+                nav_profile: "Profile", nav_projects: "Projects", nav_tours: "Experience", nav_teaching: "Teaching", nav_contact: "Let's Talk.",
+                hero_subtitle: "Musician · Author · Producer", hero_tagline: "Four decades of sonic architecture",
+                profile_title: "The Art of Creation.", profile_desc: "Gody Corominas is an active creator with over 40 years of experience. His music is a bridge between rock and Latin American roots.",
+                stats_years: "Years of Career", stats_tours: "European Tours",
+                discography_title: "Discography.", trayectoria_title: "World Tours.", trayectoria_desc: "From Rock al Parque in Colombia to 11 tours across the European continent.",
+                teaching_title: "Teaching & Culture.", contact_title: "Let's Talk.", timeline_title: "Timeline.",
+                epk_download: "Download EPK (PDF)", video_gallery: "Video Gallery"
+            }
+        };
+
+        let currentLang = 'es';
+
+        // Logic
+        function toggleMenu(open) {
+            const menu = document.getElementById('mobile-menu');
+            if (open) {
+                menu.classList.remove('hidden');
+                setTimeout(() => menu.classList.remove('opacity-0'), 10);
+            } else {
+                menu.classList.add('opacity-0');
+                setTimeout(() => menu.classList.add('hidden'), 300);
+            }
+        }
+
+        function toggleLang() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            updateContent();
+        }
+
+        function updateContent() {
+            const t = TRANSLATIONS[currentLang];
+            document.getElementById('lang-btn-text').innerText = currentLang === 'es' ? 'EN' : 'ES';
+            document.getElementById('lang-mobile-text').innerText = currentLang === 'es' ? 'English' : 'Español';
+            
+            document.querySelectorAll('[data-t]').forEach(el => {
+                const key = el.getAttribute('data-t');
+                if (t[key]) el.innerText = t[key];
+            });
+
+            document.getElementById('tours-title').innerHTML = currentLang === 'es' ? 'Giras<br>Mundiales.' : 'World<br>Tours.';
+            
+            renderTimeline();
+            renderProjects();
+            renderExperience();
+            renderTeaching();
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = TIMELINE.map(item => `
+                <div class="relative pl-12 group">
+                    <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-[#080808] border border-white/20 flex items-center justify-center group-hover:border-orange-500 transition-colors">
+                        <div class="w-2 h-2 rounded-full bg-orange-500 scale-0 group-hover:scale-100 transition-transform"></div>
+                    </div>
+                    <div class="text-orange-500 font-mono text-xs mb-1">${item.year} · ${item.category}</div>
+                    <div class="text-zinc-300 font-light">${item.event}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderProjects() {
+            const container = document.getElementById('projects-grid');
+            container.innerHTML = PROJECTS.map((p, i) => `
+                <div class="group relative reveal">
+                    <div class="absolute -inset-4 bg-white/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-all -z-10"></div>
+                    <div class="flex gap-8 items-start">
+                        <div class="text-orange-500 font-serif italic text-4xl opacity-20">0${i + 1}</div>
+                        <div class="space-y-6 flex-1">
+                            <h4 class="text-3xl font-serif italic group-hover:text-orange-500 transition-colors">${p.name}</h4>
+                            <p class="text-xs uppercase tracking-widest opacity-40 font-bold">${p.role}</p>
+                            <div class="space-y-2">
+                                ${p.albums.map(a => `<div class="flex items-center gap-3 text-sm text-zinc-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500/50"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                                    ${a}
+                                </div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderExperience() {
+            const container = document.getElementById('experience-list');
+            container.innerHTML = EXPERIENCE.map(exp => `
+                <div class="flex items-center justify-between py-6 border-b border-white/20 group cursor-default">
+                    <span class="text-lg md:text-xl font-light text-white/80 group-hover:text-white transition-colors">${exp}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/20 group-hover:text-white group-hover:translate-x-2 transition-all"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
+            `).join('');
+        }
+
+        function renderTeaching() {
+            const container = document.getElementById('teaching-grid');
+            container.innerHTML = TEACHING.map((item, i) => `
+                <div class="bg-[#080808] p-12 space-y-6 hover:bg-zinc-900 transition-colors group">
+                    <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-orange-500 transition-colors">
+                        <span class="text-xs font-mono opacity-40 group-hover:text-orange-500">0${i + 1}</span>
+                    </div>
+                    <h4 class="text-xl font-serif italic leading-snug">${item}</h4>
+                </div>
+            `).join('');
+        }
+
+        // Scroll Effects
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const heroBg = document.getElementById('hero-bg');
+            const heroName = document.getElementById('hero-name');
+            
+            // Parallax
+            if (heroBg) heroBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+            if (heroName) heroName.style.transform = `translateY(${scrolled * -0.3}px)`;
+
+            // Reveal animations
+            document.querySelectorAll('.reveal').forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        });
+
+        // Init
+        window.onload = () => {
+            updateContent();
+            // Initial reveal check
+            window.dispatchEvent(new Event('scroll'));
+        };
+    </script>
+</body>
+</html>
