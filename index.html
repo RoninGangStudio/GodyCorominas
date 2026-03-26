@@ -121,7 +121,7 @@
         </div>
 
         <div class="absolute inset-0 z-0 opacity-40 grayscale hover:grayscale-0 transition-all duration-1000 parallax-bg" id="hero-bg">
-            <img src="https://raw.githubusercontent.com/RoninGangStudio/GodyCorominas/main/foto1.jpg" alt="Gody Corominas Live" class="w-full h-full object-cover object-center" referrerPolicy="no-referrer">
+            <img src="https://raw.githubusercontent.com/RoninGangStudio/GodyCorominas/main/foto1.jpeg" alt="Gody Corominas Live" class="w-full h-full object-cover object-center" referrerPolicy="no-referrer">
         </div>
 
         <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-20">
@@ -186,7 +186,7 @@
                         <h2 class="text-6xl font-serif italic" data-t="video_gallery">Galería de Video</h2>
                     </div>
                     <div class="aspect-video rounded-3xl overflow-hidden glass-dark border border-white/10">
-                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/RH-b0pwbz5M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/mZcksYvTPQM?si=KnsV4jWJzsXLYEZw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="space-y-12 reveal">
@@ -195,7 +195,7 @@
                         <h2 class="text-6xl font-serif italic">Spotify.</h2>
                     </div>
                     <div class="rounded-3xl overflow-hidden glass-dark border border-white/10">
-                        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/79g0f1Y8r3jG5LhWlF2vJ6" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO0x8Q7o?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
@@ -303,8 +303,8 @@
             
             <div class="flex gap-12 text-[9px] uppercase tracking-[0.4em] opacity-30">
                 <a href="https://www.instagram.com/godycorominas/" target="_blank" class="hover:opacity-100 transition-opacity">Instagram</a>
-                <a href="#" target="_blank" class="hover:opacity-100 transition-opacity">Spotify</a>
-                <a href="https://youtu.be/RH-b0pwbz5M" target="_blank" class="hover:opacity-100 transition-opacity">Youtube</a>
+                <a href="https://open.spotify.com/artist/3jMhZ5r3hE28R0yB6E5e5B" target="_blank" class="hover:opacity-100 transition-opacity">Spotify</a>
+                <a href="https://youtu.be/mZcksYvTPQM" target="_blank" class="hover:opacity-100 transition-opacity">Youtube</a>
             </div>
         </div>
     </footer>
@@ -327,12 +327,18 @@
         ];
 
         const TIMELINE = [
-            { year: "1986", event: "Inicios en la escena rock de Mendoza", category: "Origen" },
-            { year: "1995", event: "Fundación de La Brizuela Méndez", category: "Banda" },
-            { year: "2005", event: "Ingreso a Karamelo Santo - Proyección Internacional", category: "Hito" },
-            { year: "2007", event: "Primera gira europea (11 en total)", category: "Gira" },
-            { year: "2015", event: "Radicación en Puerto Madryn - Nueva etapa creativa", category: "Cambio" },
-            { year: "2023", event: "Lanzamiento 'Solo por que quise' (Álbum Solista)", category: "Actualidad" }
+            { year: "1986", event: "Inicio en la escena rock de Mendoza. Primeras bandas y exploración entre rock y ritmos latinoamericanos.<br><span class='block mt-2 text-[10px] uppercase tracking-widest opacity-60'>Deposito Ilegal · Los Energicos Vibradores · El Fenomeno de Carl Sagan · La Rosa</span>", category: "Origen" },
+            { year: "1992", event: "Llegada a Buenos Aires con La Rosa.", category: "Traslado" },
+            { year: "1994", event: "Creación de La Inundación.", category: "Banda" },
+            { year: "2000", event: "La Brizuela Mendez disco 'Todos los frascos'. La Rosa se transforma en Articulares y luego en La Brizuela Mendez.", category: "Lanzamiento" },
+            { year: "2005", event: "Ingreso como integrante oficial de Karamelo Santo. Inicio de etapa de proyección internacional y giras.", category: "Hito" },
+            { year: "2005-2015", event: "Etapa de expansión internacional. Participación activa en discos y giras internacionales de la banda. Presencia en compilados internacionales y colaboraciones con artistas de distintos países.", category: "Expansión" },
+            { year: "2005", event: "Primera gira europea. Inicio de una serie de giras internacionales (alrededor de 11 giras europeas en total durante esta etapa).", category: "Gira" },
+            { year: "2009", event: "DVD 'El Baile Oficial' de Karamelo Santo.", category: "Lanzamiento" },
+            { year: "2010", event: "Lanzamiento de 'La Feria de la Alegría' con La Brizuela Mendez.", category: "Lanzamiento" },
+            { year: "2011", event: "Grabación del disco homónimo Karamelo Santo y Lanzamiento DVD oficial de Vivo en Mendoza.", category: "Grabación" },
+            { year: "2013", event: "Nueva etapa creativa. Radicación en Puerto Madryn. Comienzo de una etapa enfocada en producción, composición y nuevos proyectos musicales.<br><span class='block mt-2 text-[10px] uppercase tracking-widest opacity-60'>Aldrobanda · Les Barbies de Botero · Trigueño Duo · Los Chinchimoyes</span>", category: "Nueva Etapa" },
+            { year: "2023", event: "Lanzamiento solista. Publicación del álbum: 'Solo porque quise'.", category: "Solista" }
         ];
 
         const TRANSLATIONS = {
